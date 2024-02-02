@@ -12,7 +12,7 @@ import {
 } from 'redux-persist';
 
 // Global utils
-import storage from 'utils/storage';
+import storage from '@utils/storage';
 
 import reducers from './reducers';
 import migrations from './migrations';

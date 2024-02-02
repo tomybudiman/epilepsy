@@ -1,9 +1,16 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "utils/*": ["./src/utils/*"],
-      "store/*": ["./src/redux/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@store/*": ["./src/redux/*"],
+      "@modules/*": ["./src/modules/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "index.d.ts"
+  ]
 }
