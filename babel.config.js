@@ -8,6 +8,7 @@ module.exports = {
           '@utils': './src/utils',
           '@store': './src/redux',
           '@modules': './src/modules',
+          '@localization': './src/i18n/index',
         },
       },
     ],

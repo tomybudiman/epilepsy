@@ -5,7 +5,8 @@
     "paths": {
       "@utils/*": ["./src/utils/*"],
       "@store/*": ["./src/redux/*"],
-      "@modules/*": ["./src/modules/*"]
+      "@modules/*": ["./src/modules/*"],
+      "@localization": ["./src/i18n/index"]
     }
   },
   "include": [
