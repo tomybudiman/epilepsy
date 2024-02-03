@@ -21,9 +21,13 @@ const App = () => {
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer ref={navigationRef}>
-          {Object.entries(Screens).map(([name, component]) => (
-            <Stack.Screen key={name} name={name} component={component} />
-          ))}
+          <Stack.Navigator
+            initialRouteName="SplashScreen"
+            screenOptions={{headerShown: false}}>
+            {Object.entries(Screens).map(([name, component]) => (
+              <Stack.Screen key={name} name={name} component={component} />
+            ))}
+          </Stack.Navigator>
         </NavigationContainer>
       </Provider>
     </SafeAreaProvider>
