@@ -13,7 +13,7 @@ export default {
   neutral_300: '#EDEDEA',
   background: '#FDF6F2',
   backgroundDark: '#F4ECE8',
-  primary_100: '#ffffff',
+  primary_100: '#efe9f5',
   primary_300: '#d8cde2',
   primary_700: '#9A7FB5',
   primary_800: '#7b5a9c',

@@ -27,4 +27,9 @@ module.exports = {
     ],
     'optional-require',
   ],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
 };
