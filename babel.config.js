@@ -7,7 +7,9 @@ module.exports = {
         alias: {
           '@utils': './src/utils',
           '@store': './src/redux',
+          '@styles': './src/styles',
           '@modules': './src/modules',
+          '@components': './src/components',
           '@localization': './src/i18n/index',
         },
       },
@@ -23,5 +25,6 @@ module.exports = {
         allowUndefined: false,
       },
     ],
+    'optional-require',
   ],
 };

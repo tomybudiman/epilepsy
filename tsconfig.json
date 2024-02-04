@@ -8,8 +8,10 @@
     "paths": {
       "@utils/*": ["./src/utils/*"],
       "@store/*": ["./src/redux/*"],
+      "@styles/*": ["./src/styles/*"],
       "@modules/*": ["./src/modules/*"],
-      "@localization": ["./src/i18n/index"]
+      "@localization": ["./src/i18n/index"],
+      "@components/*": ["./src/components/*"],
     }
   },
   "include": [
