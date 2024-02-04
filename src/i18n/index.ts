@@ -1,4 +1,7 @@
-import {initReactI18next} from 'react-i18next';
+import {
+  initReactI18next,
+  useTranslation as useTranslationNative,
+} from 'react-i18next';
 import moment from 'moment/min/moment-with-locales';
 import isEmpty from 'lodash/isEmpty';
 import i18n from 'i18next';
@@ -10,7 +13,17 @@ import storage from '@utils/storage.ts';
 import enJson from './en.json';
 import idJson from './id.json';
 
-export {useTranslation} from 'react-i18next';
+export const useTranslation = (basePath?: string) => {
+  const {t} = useTranslationNative(
+    'translation',
+    typeof basePath === 'string'
+      ? {
+          keyPrefix: basePath,
+        }
+      : {},
+  );
+  return {t};
+};
 
 if (isEmpty(storage.getString('langCode'))) {
   storage.setString('langCode', 'id');

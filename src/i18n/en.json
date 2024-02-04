@@ -1,1 +1,12 @@
-{}
+{
+  "modules": {
+    "authentication": {
+      "components": {
+        "baseScreen": {
+          "header": "Selamat Datang",
+          "subHeader": "Masukan alamat email untuk membuat akun APP_NAME kamu atau masuk ke akun yang sudah ada"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Aileron-Black.otf",
+      "sha1": "f9c3d80856ec2f23c8733b63edc9bd9d3051d999"
+    },
+    {
+      "path": "src/assets/fonts/Aileron-Bold.otf",
+      "sha1": "9daa863f1c9a0f9efacd19fe9329c0fb9332ca7a"
+    },
+    {
+      "path": "src/assets/fonts/Aileron-Italic.otf",
+      "sha1": "338b043581d997314a4a03924ed30ff6461fd37e"
+    },
+    {
+      "path": "src/assets/fonts/Aileron-Regular.otf",
+      "sha1": "5a78965873fbce38941cd3da109280af89a42de5"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Bold.otf",
+      "sha1": "892e9a770a5340e46c9c7d9f25fa2699d9275923"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Medium.otf",
+      "sha1": "279fa3c60d682531d549d0ec9ed91f1b83402d40"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Regular.otf",
+      "sha1": "4786a0feb4c853189782709a5ac5b5dfb696942b"
+    }
+  ]
+}

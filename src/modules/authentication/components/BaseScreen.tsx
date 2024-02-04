@@ -1,6 +1,9 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {StyleSheet} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
+
+// Common
+import {useTranslation} from '@localization';
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -9,12 +12,12 @@ const styles = StyleSheet.create({
 });
 
 const BaseScreen = () => {
+  const {t} = useTranslation('modules.authentication.components.baseScreen');
   // Render
   return (
-    <SafeAreaView
-      style={styles.safeAreaView}
-      edges={['left', 'top', 'right']}
-    />
+    <SafeAreaView style={styles.safeAreaView} edges={['left', 'top', 'right']}>
+      <Text>{t('header')}</Text>
+    </SafeAreaView>
   );
 };
 
