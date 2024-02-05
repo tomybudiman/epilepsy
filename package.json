@@ -17,6 +17,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
+    "hex-to-rgba": "^2.0.1",
     "i18next": "^23.8.2",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",

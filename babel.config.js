@@ -9,6 +9,7 @@ module.exports = {
           '@store': './src/redux',
           '@styles': './src/styles',
           '@modules': './src/modules',
+          '@requests': './src/requests',
           '@components': './src/components',
           '@localization': './src/i18n/index',
         },

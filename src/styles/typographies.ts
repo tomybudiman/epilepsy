@@ -30,7 +30,7 @@ export default {
   heading_h4_16: {
     fontFamily: 'Aileron-Bold',
     fontSize: moderateScale(16),
-    lineHeight: moderateScale(24),
+    lineHeight: moderateScale(26),
   },
   heading_h5_14: {
     fontFamily: 'Aileron-Bold',
@@ -40,22 +40,22 @@ export default {
   body_text_regular: {
     fontFamily: 'Inter-Regular',
     fontSize: moderateScale(14),
-    lineHeight: moderateScale(20),
+    lineHeight: moderateScale(18),
   },
   body_text_medium: {
     fontFamily: 'Inter-Medium',
     fontSize: moderateScale(14),
-    lineHeight: moderateScale(20),
+    lineHeight: moderateScale(18),
   },
   body_text_bold: {
     fontFamily: 'Inter-Bold',
     fontSize: moderateScale(14),
-    lineHeight: moderateScale(20),
+    lineHeight: moderateScale(18),
   },
   body_text_paragraph: {
     fontFamily: 'Inter-Regular',
     fontSize: moderateScale(14),
-    lineHeight: moderateScale(22),
+    lineHeight: moderateScale(20),
   },
   body_subtext_regular: {
     fontFamily: 'Inter-Regular',
@@ -70,7 +70,7 @@ export default {
   body_subtext_bold: {
     fontFamily: 'Inter-Bold',
     fontSize: moderateScale(12),
-    lineHeight: moderateScale(16),
+    lineHeight: moderateScale(14),
   },
   body_subtext_paragraph: {
     fontFamily: 'Inter-Regular',

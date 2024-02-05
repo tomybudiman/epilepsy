@@ -19,22 +19,28 @@ const styles = StyleSheet.create({
 
 export type TextProps = {
   children?: React.ReactNode;
-  color: keyof typeof colors;
+  color?: keyof typeof colors;
   style?: StyleProp<ViewStyle>;
-  typography: keyof typeof typographies;
+  typography?: keyof typeof typographies;
 };
 
-const Text: React.FC<TextProps> = props => {
+const Text: React.FC<TextProps> = ({
+  style,
+  children,
+  color = 'textDarkPrimary',
+  typography = 'body_text_regular',
+  ...restProps
+}) => {
   const getTextStyle = useMemo(() => {
-    const baseStyle = [
-      typographies[props.typography],
-      {color: colors[props.color]},
-      props.style,
-    ];
+    const baseStyle = [typographies[typography], {color: colors[color]}, style];
     return mergeStyleProps(styles.text, baseStyle);
-  }, [props.typography, props.color, props.style]);
+  }, [typography, color, style]);
   // Render
-  return <TextNative style={getTextStyle}>{props.children}</TextNative>;
+  return (
+    <TextNative style={getTextStyle} {...restProps}>
+      {children}
+    </TextNative>
+  );
 };
 
 Text.defaultProps = {

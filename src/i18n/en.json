@@ -4,9 +4,16 @@
       "components": {
         "baseScreen": {
           "header": "Selamat Datang",
-          "subHeader": "Masukan alamat email untuk membuat akun APP_NAME kamu atau masuk ke akun yang sudah ada"
+          "subHeader": "Masukan alamat email untuk membuat akun APP_NAME kamu atau masuk ke akun yang sudah ada",
+          "continue": "Lanjutkan"
         }
       }
+    }
+  },
+  "validation": {
+    "email": {
+      "errorEmailEmpty": "Alamat email-mu masih kosong nih, isi dulu yuk",
+      "errorEmailFormat": "Alamat email kamu formatnya salah nih"
     }
   }
 }

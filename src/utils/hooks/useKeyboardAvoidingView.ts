@@ -1,6 +1,7 @@
-import {Animated} from 'react-native';
+import {useCallback} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {moderateScale} from 'react-native-size-matters';
+import {Animated} from 'react-native';
 import {get} from 'lodash';
 
 // Global utils
@@ -11,9 +12,10 @@ type KeyboardAvoidingViewHook = {
   keyboardInactiveValue?: number;
   keyboardActiveValue?: number;
 };
+type ToggleFocusBlurParam = 'active' | 'inactive';
 export const useKeyboardAvoidingView = (
   params: KeyboardAvoidingViewHook = {},
-) => {
+): [Animated.Value, (param1: ToggleFocusBlurParam) => void] => {
   const insets = useSafeAreaInsets();
   const transitionDuration = get(params, 'transitionDuration', 250);
   const keyboardActiveValue = get(
@@ -28,18 +30,27 @@ export const useKeyboardAvoidingView = (
   );
   const keyboardAvoidingValue = new Animated.Value(keyboardInactiveValue);
   let forceAnimationTimeout: NodeJS.Timeout;
-  const onFocusBlurToggle = (state: 'active' | 'inactive' = 'active') => {
-    clearTimeout(forceAnimationTimeout);
-    Animated.timing(keyboardAvoidingValue, {
-      toValue: state === 'active' ? keyboardActiveValue : keyboardInactiveValue,
-      duration: transitionDuration,
-      useNativeDriver: false,
-    }).start();
-    forceAnimationTimeout = setTimeout(() => {
-      keyboardAvoidingValue.setValue(
-        state === 'active' ? keyboardActiveValue : keyboardInactiveValue,
-      );
-    }, transitionDuration + 8);
-  };
+  const onFocusBlurToggle = useCallback(
+    (state: ToggleFocusBlurParam = 'active') => {
+      clearTimeout(forceAnimationTimeout);
+      Animated.timing(keyboardAvoidingValue, {
+        toValue:
+          state === 'active' ? keyboardActiveValue : keyboardInactiveValue,
+        duration: transitionDuration,
+        useNativeDriver: false,
+      }).start();
+      forceAnimationTimeout = setTimeout(() => {
+        keyboardAvoidingValue.setValue(
+          state === 'active' ? keyboardActiveValue : keyboardInactiveValue,
+        );
+      }, transitionDuration + 8);
+    },
+    [
+      keyboardAvoidingValue,
+      keyboardInactiveValue,
+      keyboardActiveValue,
+      transitionDuration,
+    ],
+  );
   return [keyboardAvoidingValue, onFocusBlurToggle];
 };
