@@ -1,5 +1,6 @@
 import React, {memo, useEffect, useRef, useState} from 'react';
 import {Animated} from 'react-native';
+import event = Animated.event;
 
 export type FadeAnimationProps = {
   duration?: number;
@@ -16,6 +17,7 @@ const FadeAnimation: React.FC<FadeAnimationProps> = ({
   const animatedFade = useRef(new Animated.Value(isVisible ? 1 : 0)).current;
   // Hooks
   useEffect(() => {
+    animatedFade.stopAnimation();
     if (isVisible) {
       setLocalVisibleState(true);
       Animated.timing(animatedFade, {

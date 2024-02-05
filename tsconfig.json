@@ -13,6 +13,7 @@
       "@requests/*": ["./src/requests/*"],
       "@localization": ["./src/i18n/index"],
       "@components/*": ["./src/components/*"],
+      "@env": ["./src/utils/types/env"],
     }
   },
   "include": [

@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'react-hooks/exhaustive-deps': 'off',
     'react-native/no-inline-styles': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': ['error', {endOfLine: 'auto'}],
     'import/extensions': [
       'error',

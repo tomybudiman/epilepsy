@@ -12,8 +12,6 @@ import {
   Controller,
   FieldError,
   FieldValue,
-  FieldValues,
-  UseFormSetError,
   FieldErrorsImpl,
 } from 'react-hook-form';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -25,7 +23,7 @@ import Text from '@components/core/Text';
 import Button from '@components/core/Button';
 
 // Global utils
-import {useKeyboardAvoidingView} from '@utils/hooks/useKeyboardAvoidingView.ts';
+import {useKeyboardAvoidingView} from '@utils/hooks/useKeyboardAvoidingView';
 
 const styles = StyleSheet.create({
   fullFlex: {
@@ -46,11 +44,12 @@ const styles = StyleSheet.create({
 
 export type AuthBaseScreenProps = {
   name: string;
+  loading?: boolean;
   headerLabel: string;
   subHeaderLabel: string;
   mainButtonLabel: string;
-  onSubmit: FieldValue<any>;
-  validate: (value: string) => any;
+  onSubmit: (param1: FieldValue<any>) => void;
+  validate: (value: string) => boolean | string;
   renderInput: (param1: {
     value: string;
     onBlur: () => void;
@@ -64,7 +63,7 @@ export type AuthBaseScreenProps = {
   }) => React.ReactElement;
 };
 export type AuthBaseScreenRef = {
-  setFieldError: UseFormSetError<FieldValues>;
+  setFieldError: (errorMessage: string) => void;
 };
 
 const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
@@ -73,6 +72,7 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
     const {
       control,
       setError,
+      clearErrors,
       formState: {errors},
       handleSubmit,
     } = useForm();
@@ -80,6 +80,13 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
     const onSubmit = () => {
       Keyboard.dismiss();
       handleSubmit(props.onSubmit)();
+    };
+    const setFieldError = (errorMessage: string) => {
+      clearErrors(props.name);
+      setError(props.name, {
+        type: 'custom',
+        message: errorMessage,
+      });
     };
     // Getter Constants
     const getFooterContainerStyle = useMemo(() => {
@@ -91,13 +98,7 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
       ];
     }, [keyboardAvoidingValue]);
     // Hooks
-    useImperativeHandle(
-      ref,
-      () => {
-        return {setFieldError: setError};
-      },
-      [],
-    );
+    useImperativeHandle(ref, () => ({setFieldError}), []);
     // Render
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -144,7 +145,11 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
             isAnimated={true}
             backgroundColor="primary_100"
             style={getFooterContainerStyle}>
-            <Button size="large" onPress={onSubmit}>
+            <Button
+              size="large"
+              onPress={onSubmit}
+              loading={props.loading}
+              disabled={props.loading}>
               {props.mainButtonLabel}
             </Button>
           </Box>

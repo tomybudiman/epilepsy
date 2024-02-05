@@ -9,7 +9,7 @@ import {moderateScale} from 'react-native-size-matters';
 import hexToRgba from 'hex-to-rgba';
 
 // Global utils
-import {mergeStyleProps} from '@utils/styles/mergeStyleProps.ts';
+import {mergeStyleProps} from '@utils/styles/mergeStyleProps';
 
 // Styles
 import typographies from '@styles/typographies.ts';
