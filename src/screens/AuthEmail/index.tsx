@@ -1,5 +1,4 @@
 import React, {useRef, useCallback, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {FieldValue} from 'react-hook-form';
 import {isEmpty, get} from 'lodash';
 
@@ -8,6 +7,7 @@ import TextInput from '@components/core/TextInput';
 
 // Global utils
 import {validateEmailFormat} from '@utils/validation.ts';
+import {useNavigation} from '@utils/navigation.ts';
 
 // Requests
 import {checkEmailAddress} from '@requests/auth.ts';
@@ -26,6 +26,7 @@ const AuthEmail = () => {
   const {t: tValidation} = useTranslation('validation.email');
   const baseScreenRef = useRef<AuthBaseScreenRef>(null);
   const [checkEmailLoading, setCheckEmailLoading] = useState<boolean>(false);
+  const fieldName: string = 'email';
   // Methods
   const validateField = useCallback((value: string) => {
     if (isEmpty(value)) {
@@ -39,10 +40,9 @@ const AuthEmail = () => {
   const onSubmit = async (data: FieldValue<any>) => {
     try {
       setCheckEmailLoading(true);
-      const response = await checkEmailAddress({email: data.email});
-      if (get(response, 'data.isEmailFound')) {
-      } else {
-      }
+      const response = await checkEmailAddress({email: data[fieldName]});
+      const isEmailFound = get(response, 'data.isEmailFound');
+      navigation.navigate(isEmailFound ? 'AuthSignIn' : 'AuthSignUp');
     } catch (e) {
       const errorCode = get(e, 'response.status');
       baseScreenRef.current &&
@@ -54,7 +54,7 @@ const AuthEmail = () => {
   // Render
   return (
     <BaseScreen
-      name="email"
+      name={fieldName}
       onSubmit={onSubmit}
       ref={baseScreenRef}
       validate={validateField}

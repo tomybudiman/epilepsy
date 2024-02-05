@@ -21,6 +21,7 @@ import {moderateScale} from 'react-native-size-matters';
 import Box from '@components/core/Box';
 import Text from '@components/core/Text';
 import Button from '@components/core/Button';
+import Header from '@components/common/Header';
 
 // Global utils
 import {useKeyboardAvoidingView} from '@utils/hooks/useKeyboardAvoidingView';
@@ -29,25 +30,22 @@ const styles = StyleSheet.create({
   fullFlex: {
     flex: 1,
   },
-  container: {
-    flex: 1,
-    paddingTop: moderateScale(24),
-    paddingHorizontal: moderateScale(16),
-  },
   headerText: {
     marginBottom: moderateScale(20),
   },
-  footerContainer: {
+  horizontalSafePadding: {
     paddingHorizontal: moderateScale(16),
   },
 });
 
-export type AuthBaseScreenProps = {
+export type AuthBaseScreenrestProps = {
   name: string;
   loading?: boolean;
   headerLabel: string;
   subHeaderLabel: string;
   mainButtonLabel: string;
+  headerTitleLabel?: string;
+  showHeaderBackButton?: boolean;
   onSubmit: (param1: FieldValue<any>) => void;
   validate: (value: string) => boolean | string;
   renderInput: (param1: {
@@ -66,8 +64,8 @@ export type AuthBaseScreenRef = {
   setFieldError: (errorMessage: string) => void;
 };
 
-const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
-  (props, ref) => {
+const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenrestProps>(
+  ({showHeaderBackButton = false, ...restProps}, ref) => {
     const [keyboardAvoidingValue, toggleFocus] = useKeyboardAvoidingView();
     const {
       control,
@@ -79,11 +77,11 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
     // Event handler methods
     const onSubmit = () => {
       Keyboard.dismiss();
-      handleSubmit(props.onSubmit)();
+      handleSubmit(restProps.onSubmit)();
     };
     const setFieldError = (errorMessage: string) => {
-      clearErrors(props.name);
-      setError(props.name, {
+      clearErrors(restProps.name);
+      setError(restProps.name, {
         type: 'custom',
         message: errorMessage,
       });
@@ -91,7 +89,7 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
     // Getter Constants
     const getFooterContainerStyle = useMemo(() => {
       return [
-        styles.footerContainer,
+        styles.horizontalSafePadding,
         {
           paddingBottom: keyboardAvoidingValue,
         },
@@ -105,40 +103,48 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
         <KeyboardAvoidingView
           style={styles.fullFlex}
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <Box backgroundColor="primary_100" style={styles.container}>
+          <Box backgroundColor="primary_100" style={styles.fullFlex}>
             <SafeAreaView
               style={styles.fullFlex}
               edges={['left', 'top', 'right']}>
-              <Text
-                color="textDarkPrimary"
-                style={styles.headerText}
-                typography="heading_h1_24">
-                {props.headerLabel}
-              </Text>
-              <Text
-                color="textDarkSecondary"
-                style={styles.headerText}
-                typography="body_text_regular">
-                {props.subHeaderLabel}
-              </Text>
-              <Controller
-                name={props.name}
-                control={control}
-                rules={{validate: props.validate}}
-                render={({field: {onChange, onBlur, value}}) => {
-                  const onBlurWrapper = () => {
-                    toggleFocus('inactive');
-                    onBlur();
-                  };
-                  return props.renderInput({
-                    value,
-                    onChange,
-                    onBlur: onBlurWrapper,
-                    error: errors[props.name],
-                    onFocus: () => toggleFocus('active'),
-                  });
-                }}
+              <Header
+                label={restProps.headerTitleLabel}
+                showBackButton={showHeaderBackButton}
               />
+              <Box
+                backgroundColor="primary_100"
+                style={[styles.fullFlex, styles.horizontalSafePadding]}>
+                <Text
+                  color="textDarkPrimary"
+                  style={styles.headerText}
+                  typography="heading_h1_24">
+                  {restProps.headerLabel}
+                </Text>
+                <Text
+                  color="textDarkSecondary"
+                  style={styles.headerText}
+                  typography="body_text_regular">
+                  {restProps.subHeaderLabel}
+                </Text>
+                <Controller
+                  name={restProps.name}
+                  control={control}
+                  rules={{validate: restProps.validate}}
+                  render={({field: {onChange, onBlur, value}}) => {
+                    const onBlurWrapper = () => {
+                      toggleFocus('inactive');
+                      onBlur();
+                    };
+                    return restProps.renderInput({
+                      value,
+                      onChange,
+                      onBlur: onBlurWrapper,
+                      error: errors[restProps.name],
+                      onFocus: () => toggleFocus('active'),
+                    });
+                  }}
+                />
+              </Box>
             </SafeAreaView>
           </Box>
           <Box
@@ -148,9 +154,9 @@ const BaseScreen = forwardRef<AuthBaseScreenRef, AuthBaseScreenProps>(
             <Button
               size="large"
               onPress={onSubmit}
-              loading={props.loading}
-              disabled={props.loading}>
-              {props.mainButtonLabel}
+              loading={restProps.loading}
+              disabled={restProps.loading}>
+              {restProps.mainButtonLabel}
             </Button>
           </Box>
         </KeyboardAvoidingView>

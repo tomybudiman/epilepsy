@@ -2,7 +2,7 @@ import React, {memo, useMemo} from 'react';
 import {View, Animated, ViewStyle, ViewProps, StyleProp} from 'react-native';
 
 // Global utils
-import {mergeStyleProps} from '@utils/styles/mergeStyleProps.ts';
+import {mergeStyleProps} from '@utils/styles/mergeStyleProps';
 
 // Styles
 import colors from '@styles/colors.ts';
@@ -18,7 +18,7 @@ const Box: React.FC<BoxProps> = ({
   style,
   children,
   isAnimated = false,
-  backgroundColor = 'neutral_0',
+  backgroundColor = 'transparent',
   ...restProps
 }) => {
   const BoxContainer = isAnimated ? Animated.View : View;

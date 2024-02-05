@@ -1,13 +1,13 @@
 import React, {memo, useMemo} from 'react';
 import {
   StyleProp,
-  ViewStyle,
+  TextStyle,
   StyleSheet,
   Text as TextNative,
 } from 'react-native';
 
 // Global utils
-import {mergeStyleProps} from '@utils/styles/mergeStyleProps.ts';
+import {mergeStyleProps} from '@utils/styles/mergeStyleProps';
 
 // Styles
 import typographies from '@styles/typographies.ts';
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 export type TextProps = {
   children?: React.ReactNode;
   color?: keyof typeof colors;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
   typography?: keyof typeof typographies;
 };
 

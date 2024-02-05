@@ -7,6 +7,7 @@ export default {
   textLightSecondary: 'rgba(255, 255, 255, 0.8)',
   textLightTertiary: 'rgba(255, 255, 255, 0.4)',
   textLightDisabled: 'rgba(255, 255, 255, 0.2)',
+  transparent: 'rgba(255, 255, 255, 0)',
   neutral_0: '#FFFFFF',
   neutral_100: '#FCFAFA',
   neutral_200: '#F7F5F4',
