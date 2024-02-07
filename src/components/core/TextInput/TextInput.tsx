@@ -1,16 +1,21 @@
-import React, {memo} from 'react';
+import React, {memo, useMemo, useState, useEffect, useCallback} from 'react';
 import {
   TextInput as TextInputNative,
   MD3LightTheme as DefaultTheme,
   TextInputProps as TextInputPropsNative,
 } from 'react-native-paper';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import {StyleSheet} from 'react-native';
 import {isEmpty, get} from 'lodash';
 
 // Fontawesome
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEye, faEyeLowVision} from '@fortawesome/pro-solid-svg-icons';
+import {
+  faEye,
+  faCircleXmark,
+  faEyeLowVision,
+  IconDefinition,
+} from '@fortawesome/pro-solid-svg-icons';
 
 // Global components
 import FadeAnimation from '@components/common/FadeAnimation';
@@ -25,6 +30,24 @@ import typographies from '@styles/typographies.ts';
 import colors from '@styles/colors.ts';
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: 'auto',
+    position: 'relative',
+  },
+  textInput: {
+    height: moderateScale(48),
+    ...typographies.body_text_medium,
+  },
+  contextActionButton: {
+    alignItems: 'center',
+    position: 'absolute',
+    justifyContent: 'center',
+    right: moderateScale(16),
+    width: moderateScale(20),
+    height: moderateScale(20),
+    bottom: moderateScale(14.5),
+  },
   errorMessage: {
     marginTop: moderateScale(4),
     marginLeft: moderateScale(8),
@@ -41,27 +64,80 @@ const TextInputTheme = {
 
 export type TextInputProps = Omit<TextInputPropsNative, 'error'> & {
   error?: ErrorFormField;
+  onChangeText?: (param1: string) => void;
 };
 
 const TextInput: React.FC<TextInputProps> = ({
   error,
+  value,
+  style,
+  onChangeText,
   secureTextEntry = false,
   ...restProps
 }) => {
-  const isErrorExist = !isEmpty(error);
+  const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(
+    !secureTextEntry,
+  );
+  const [textInputValue, setTextInputValue] = useState<string>('');
+  // Event handler methods
+  const onChangeTextInput = useCallback((textValue: string) => {
+    setTextInputValue(textValue);
+    onChangeText && onChangeText(textValue);
+  }, []);
+  const onPressContextActionButton = useCallback(() => {
+    if (secureTextEntry) {
+      setPasswordVisibility(!isPasswordVisible);
+    } else {
+      onChangeTextInput('');
+    }
+  }, [secureTextEntry, isPasswordVisible]);
+  // Getter constants
+  const getContextActionIcon = useMemo<IconDefinition>(() => {
+    if (secureTextEntry) {
+      return isPasswordVisible ? faEyeLowVision : faEye;
+    }
+    return faCircleXmark;
+  }, [secureTextEntry, isPasswordVisible]);
+  const getSecureTextEntryState: boolean = secureTextEntry
+    ? !isPasswordVisible
+    : false;
+  const isErrorExist: boolean = !isEmpty(error);
+  // Hooks
+  useEffect(() => {
+    if (value) {
+      setTextInputValue(value);
+    }
+  }, [value]);
   // Render
   return (
     <>
-      <TextInputNative
-        mode="outlined"
-        error={isErrorExist}
-        theme={TextInputTheme}
-        outlineColor={colors.primary_300}
-        activeOutlineColor={colors.primary_700}
-        outlineStyle={{borderRadius: moderateScale(8)}}
-        style={{...typographies.body_text_medium, height: moderateScale(48)}}
-        {...restProps}
-      />
+      <Box style={styles.container}>
+        <TextInputNative
+          mode="outlined"
+          error={isErrorExist}
+          value={textInputValue}
+          theme={TextInputTheme}
+          style={styles.textInput}
+          onChangeText={onChangeTextInput}
+          outlineColor={colors.primary_300}
+          activeOutlineColor={colors.primary_700}
+          secureTextEntry={getSecureTextEntryState}
+          outlineStyle={{borderRadius: moderateScale(8)}}
+          {...restProps}
+        />
+        <FadeAnimation duration={100} isVisible={!isEmpty(textInputValue)}>
+          <TouchableOpacity
+            activeOpacity={0.75}
+            style={styles.contextActionButton}
+            onPress={onPressContextActionButton}>
+            <FontAwesomeIcon
+              icon={getContextActionIcon}
+              color={colors.secondary_800}
+              size={moderateScale(18)}
+            />
+          </TouchableOpacity>
+        </FadeAnimation>
+      </Box>
       <FadeAnimation isVisible={isErrorExist}>
         <Text
           color="error_700"
