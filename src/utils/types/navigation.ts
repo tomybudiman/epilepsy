@@ -1,6 +1,6 @@
 export type RootStackParamList = {
   SplashScreen: undefined;
   AuthEmail: undefined;
-  AuthSignIn: undefined;
-  AuthSignUp: undefined;
+  AuthSignIn: {email: string};
+  AuthSignUp: {email: string};
 };

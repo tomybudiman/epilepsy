@@ -8,9 +8,14 @@ import {moderateScale} from 'react-native-size-matters';
 import {StyleSheet} from 'react-native';
 import {isEmpty, get} from 'lodash';
 
+// Fontawesome
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faEye, faEyeLowVision} from '@fortawesome/pro-solid-svg-icons';
+
 // Global components
-import Text from '@components/core/Text';
 import FadeAnimation from '@components/common/FadeAnimation';
+import Text from '@components/core/Text';
+import Box from '@components/core/Box';
 
 // Global utils
 import {ErrorFormField} from '@utils/types/form.ts';
@@ -38,7 +43,11 @@ export type TextInputProps = Omit<TextInputPropsNative, 'error'> & {
   error?: ErrorFormField;
 };
 
-const TextInput: React.FC<TextInputProps> = ({error, ...restProps}) => {
+const TextInput: React.FC<TextInputProps> = ({
+  error,
+  secureTextEntry = false,
+  ...restProps
+}) => {
   const isErrorExist = !isEmpty(error);
   // Render
   return (

@@ -42,12 +42,12 @@ export type AuthBaseScreenrestProps = {
   name: string;
   loading?: boolean;
   headerLabel: string;
-  subHeaderLabel: string;
   mainButtonLabel: string;
   headerTitleLabel?: string;
   showHeaderBackButton?: boolean;
+  subHeaderLabel: string | React.ReactNode;
   onSubmit: (param1: FieldValue<any>) => void;
-  validate: (value: string) => boolean | string;
+  validate?: (value: string) => boolean | string;
   renderInput: (param1: {
     value: string;
     onBlur: () => void;

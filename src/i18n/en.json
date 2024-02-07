@@ -1,19 +1,26 @@
 {
-  "modules": {
-    "authentication": {
-      "components": {
-        "baseScreen": {
-          "header": "Selamat Datang",
-          "subHeader": "Masukan alamat email untuk membuat akun APP_NAME kamu atau masuk ke akun yang sudah ada",
-          "continue": "Lanjutkan"
-        }
-      }
+  "screens": {
+    "authEmail": {
+      "header": "Selamat Datang",
+      "subHeader": "Masukan alamat email untuk membuat akun APP_NAME kamu atau masuk ke akun yang sudah ada",
+      "emailInputPlaceholder": "Email",
+      "continue": "Lanjutkan"
+    },
+    "authSignIn": {
+      "header": "Masuk ke APP_NAME",
+      "subHeader": "Masukan kata sandi dari {{email}}",
+      "passwordInputPlaceholder": "Kata sandi",
+      "continue": "Masuk"
     }
   },
   "validation": {
     "email": {
       "errorEmailEmpty": "Alamat email-mu masih kosong nih, isi dulu yuk",
       "errorEmailFormat": "Alamat email kamu formatnya salah nih"
+    },
+    "password": {
+      "errorPasswordEmpty": "Password-mu masih kosong nih, isi dulu yuk",
+      "errorPasswordWrong": "Password dan email-mu tidak sesuai nih"
     }
   }
 }
