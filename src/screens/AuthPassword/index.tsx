@@ -9,20 +9,20 @@ import TextInput from '@components/core/TextInput';
 import Text from '@components/core/Text';
 
 // Global utils
-import {type RootStackParamList} from '@utils/types/navigation.ts';
+import {type RootStackParamList} from '@utils/types/navigation';
 import {useRoute} from '@utils/navigation.ts';
 
 // Requests
-import {signInUser} from '@requests/auth.ts';
+import {signInUser, signUpUser} from '@requests/auth';
 
 // Modules
 import BaseScreen, {
   type AuthBaseScreenRef,
 } from '@modules/authentication/components/BaseScreen';
 
-const AuthSignIn = () => {
-  const route = useRoute() as {params: RootStackParamList['AuthSignIn']};
-  const {t} = useTranslation('screens.authSignIn');
+const AuthPassword = () => {
+  const route = useRoute() as {params: RootStackParamList['AuthPassword']};
+  const {t} = useTranslation(`screens.authPassword.${route.params.type}`);
   const {t: tValidation} = useTranslation('validation.password');
   const baseScreenRef = useRef<AuthBaseScreenRef>(null);
   const [signInLoading, setSignInLoading] = useState<boolean>(false);
@@ -38,11 +38,15 @@ const AuthSignIn = () => {
   const onSubmit = async (data: FieldValue<any>) => {
     try {
       setSignInLoading(true);
-      const response = await signInUser({
+      const payload = {
         email: route.params.email,
         password: data.password,
-      });
-      console.log(response.data.token);
+      };
+      if (route.params.type === 'signIn') {
+        const response = await signInUser(payload);
+      } else {
+        const response = await signUpUser(payload);
+      }
     } catch (e) {
       const errorCode = get(e, 'response.status');
       baseScreenRef.current &&
@@ -93,4 +97,4 @@ const AuthSignIn = () => {
   );
 };
 
-export default AuthSignIn;
+export default AuthPassword;

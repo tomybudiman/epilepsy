@@ -42,7 +42,8 @@ const AuthEmail = () => {
       setCheckEmailLoading(true);
       const response = await checkEmailAddress({email: data[fieldName]});
       const isEmailFound = get(response, 'data.isEmailFound');
-      navigation.navigate(isEmailFound ? 'AuthSignIn' : 'AuthSignUp', {
+      navigation.navigate('AuthPassword', {
+        type: isEmailFound ? 'signIn' : 'signUp',
         email: data[fieldName],
       });
     } catch (e) {

@@ -1,3 +1,3 @@
 export {default as SplashScreen} from './SplashScreen';
 export {default as AuthEmail} from './AuthEmail';
-export {default as AuthSignIn} from './AuthSignIn';
+export {default as AuthPassword} from './AuthPassword';

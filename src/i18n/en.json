@@ -6,11 +6,19 @@
       "emailInputPlaceholder": "Email",
       "continue": "Lanjutkan"
     },
-    "authSignIn": {
-      "header": "Masuk ke APP_NAME",
-      "subHeader": "Masukan kata sandi dari {{email}}",
-      "passwordInputPlaceholder": "Kata sandi",
-      "continue": "Masuk"
+    "authPassword": {
+      "signIn": {
+        "header": "Masuk ke APP_NAME",
+        "subHeader": "Masukan kata sandi dari {{email}}",
+        "passwordInputPlaceholder": "Kata sandi",
+        "continue": "Masuk"
+      },
+      "signUp": {
+        "header": "Buat sebuah akun",
+        "subHeader": "Masukan kata sandi untuk membuat akun baru",
+        "passwordInputPlaceholder": "Kata sandi",
+        "continue": "Buat"
+      }
     }
   },
   "validation": {
